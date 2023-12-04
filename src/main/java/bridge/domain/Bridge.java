@@ -41,4 +41,8 @@ public class Bridge {
     public int getSize() {
         return bridge.size();
     }
+
+    public boolean isUp(final int i) {
+        return bridge.get(i).isUp();
+    }
 }

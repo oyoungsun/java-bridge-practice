@@ -37,6 +37,7 @@ public class GameController {
     }
 
     private void processResult() {
+        OutputView.printFinalMap(bridgeGame.getFinalScore());
     }
 
     private boolean processRetry() {

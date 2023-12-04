@@ -6,6 +6,7 @@ import bridge.domain.BridgeMaker;
 import bridge.domain.GameCommand;
 import bridge.domain.Move;
 import bridge.domain.dto.MapDto;
+import bridge.domain.dto.OutcomDto;
 import bridge.domain.dto.Result;
 import bridge.util.ExceptionHandler;
 import java.util.ArrayList;
@@ -17,8 +18,12 @@ import java.util.stream.Collectors;
  */
 public class BridgeGame {
     private final BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
+    private static final int INITIAL_TRY_COUNT = 1;
+    private int tryCount = INITIAL_TRY_COUNT;
     private Bridge bridge;
     private Bridge user;
+    private Move userLastMove;
+
 
     public static BridgeGame from() {
         return new BridgeGame();
@@ -26,7 +31,7 @@ public class BridgeGame {
 
     public void settingBridge(final int bridgeSize) {
         List<String> randomBridge = bridgeMaker.makeBridge(bridgeSize);
-        List<Move> moves = randomBridge.stream().map(moveInt -> Move.findByMoveInt(moveInt))
+        List<Move> moves = randomBridge.stream().map(moveName -> Move.findByMoveName(moveName))
                 .collect(Collectors.toList());
         bridge = Bridge.from(moves);
         user = Bridge.from(new ArrayList<>());
@@ -34,22 +39,15 @@ public class BridgeGame {
     }
 
     public boolean move(final String given) {
-        Move move = Move.findByMoveName(given);
-        boolean isMovable = user.move(bridge, move);
+        userLastMove = Move.findByMoveName(given);
+        boolean isMovable = user.move(bridge, userLastMove);
         return isMovable;
     }
-
-
-    /**
-     * 사용자가 게임을 다시 시도할 때 사용하는 메서드
-     * <p>
-     * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-     *
-     * @return
-     */
+    
     public boolean retry(final String given) {
         GameCommand command = GameCommand.findByString(given);
         if(command == GameCommand.RETRY){
+            tryCount++;
             user = Bridge.from(new ArrayList<>());
             return true;
         }
@@ -63,8 +61,13 @@ public class BridgeGame {
     public MapDto getResult(final boolean isSuccess) {
         //현재까지의 성공한 결과에 가장 최근 결과를 반영해 반환한다.
         if(isSuccess){
-            MapDto.fromEntity(user.getSize(), isSuccess);
+            MapDto.fromEntity(user, userLastMove, isSuccess);
         }
-        return MapDto.fromEntity(user.getSize(), isSuccess);
+        return MapDto.fromEntity(user, userLastMove, isSuccess);
+    }
+
+    public OutcomDto getFinalScore() {
+        boolean isSuccess = user.isSameSize(bridge);
+        return OutcomDto.fromEntity(getResult(isSuccess), isSuccess, tryCount);
     }
 }

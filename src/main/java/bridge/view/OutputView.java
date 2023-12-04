@@ -1,6 +1,7 @@
 package bridge.view;
 
 import bridge.domain.dto.MapDto;
+import bridge.domain.dto.OutcomDto;
 import bridge.domain.dto.Result;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,26 +34,43 @@ public class OutputView {
 
     public static void printMap(final MapDto mapDto) {
         System.out.print(Map.PREFIX);
-        List<String> results = new ArrayList<>();
-        for (Result result : mapDto.getResults()) {
-            if (result == Result.SUCCESS) {
-                results.add(Map.SUCCESS);
-                continue;
-            }
-            results.add(Map.FAIL);
-        }
+        List<String> results = printMapOne(mapDto.getUpResult());
+        System.out.print(String.join(Map.DELIMITER, results));
+        System.out.println(Map.SUFFIX);
+
+        System.out.print(Map.PREFIX);
+        results = printMapOne(mapDto.getDownResult());
         System.out.print(String.join(Map.DELIMITER, results));
         System.out.println(Map.SUFFIX);
         printEmpty();
     }
 
-    public static void printFinalMap() {
+    private static List<String> printMapOne(final List<Result> given) {
+        List<String> results = new ArrayList<>();
+        for (Result result : given) {
+            if (result == Result.SUCCESS) {
+                results.add(Map.SUCCESS);
+                continue;
+            }
+            if (result == Result.FAIL) {
+                results.add(Map.FAIL);
+                continue;
+            }
+            results.add(Map.NOTHING);
+        }
+        return results;
+    }
+
+
+    public static void printFinalMap(final OutcomDto outcomDto) {
         System.out.println(OutMessage.FINAL.getPrint());
-        /**
-         * 게임의 최종 결과를 정해진 형식에 맞춰 출력한다.
-         * <p>
-         * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-         */
+        printMap(outcomDto.getMap());
+        if (outcomDto.isSuccess()) {
+            printResult(GameResult.SUCCESS, outcomDto.getTryCount());
+            printEmpty();
+            return;
+        }
+        printResult(GameResult.FAIL, outcomDto.getTryCount());
         printEmpty();
     }
 
@@ -87,10 +105,16 @@ public class OutputView {
     }
 
     class Map {
+        public static final String NOTHING = "   ";
         private static final String SUCCESS = " O ";
         private static final String FAIL = " X ";
         private static final String DELIMITER = "|";
         private static final String PREFIX = "[";
         private static final String SUFFIX = "]";
+    }
+
+    class GameResult {
+        public static final String SUCCESS = "성공";
+        public static final String FAIL = "실패";
     }
 }
