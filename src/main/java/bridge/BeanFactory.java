@@ -25,4 +25,8 @@ public class BeanFactory {
     public BridgeGame getBridgeGame() {
         return bridgeGame;
     }
+
+    public BridgeMaker getBridgeMaker() {
+        return bridgeMaker;
+    }
 }
