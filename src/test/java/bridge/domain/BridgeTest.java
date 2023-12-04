@@ -43,11 +43,11 @@ class BridgeTest {
 
     private static Stream<Arguments> generateMove(){
         return Stream.of( //user, generated, inputMove
-                Arguments.of(Bridge.from(new ArrayList<>(List.of(Move.UP, Move.DOWN, Move.UP))), Move.UP,
-                        Bridge.from(List.of(Move.UP, Move.DOWN, Move.UP, Move.UP)), true, 4),
+            Arguments.of(Bridge.from(new ArrayList<>(List.of(Move.UP, Move.DOWN, Move.UP))), Move.UP,
+                    Bridge.from(List.of(Move.UP, Move.DOWN, Move.UP, Move.UP)), true, 4),
 
-                Arguments.of(Bridge.from(new ArrayList<>(List.of(Move.UP, Move.DOWN, Move.DOWN))), Move.DOWN,
-                        Bridge.from(List.of(Move.UP, Move.DOWN, Move.DOWN, Move.UP)), false, 3)
+            Arguments.of(Bridge.from(new ArrayList<>(List.of(Move.UP, Move.DOWN, Move.DOWN))), Move.DOWN,
+                    Bridge.from(List.of(Move.UP, Move.DOWN, Move.DOWN, Move.UP)), false, 3)
         );
     }
 }
