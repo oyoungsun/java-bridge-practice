@@ -1,4 +1,4 @@
-package bridge.controller;
+package bridge.service;
 
 import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.Bridge;
@@ -7,8 +7,6 @@ import bridge.domain.GameCommand;
 import bridge.domain.Move;
 import bridge.domain.dto.MapDto;
 import bridge.domain.dto.OutcomDto;
-import bridge.domain.dto.Result;
-import bridge.util.ExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +21,6 @@ public class BridgeGame {
     private Bridge bridge;
     private Bridge user;
     private Move userLastMove;
-
 
     public static BridgeGame from() {
         return new BridgeGame();

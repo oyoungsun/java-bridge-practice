@@ -20,7 +20,7 @@ public enum Move {
 
     public static String findStringByMoveInt(final int moveInt) {
         return Arrays.stream(Move.values()).filter(move -> move.moveInt == moveInt).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("%d 또는 %d로 생성 가능합니다", 0, 1)))
+                .orElseThrow(() -> new IllegalStateException(String.format("%d 또는 %d로 생성 가능합니다", 0, 1)))
                 .moveName;
     }
 

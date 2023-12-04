@@ -10,6 +10,7 @@ import java.util.List;
 public class BridgeMaker {
 
     private final BridgeNumberGenerator bridgeNumberGenerator;
+    private static final String BRIDGE_STATE_EXCEPTION = "다리의 길이가 맞지 않습니다.";
 
     public BridgeMaker(BridgeNumberGenerator bridgeNumberGenerator) {
         this.bridgeNumberGenerator = bridgeNumberGenerator;
@@ -25,7 +26,7 @@ public class BridgeMaker {
             bridge.add(Move.findStringByMoveInt(bridgeNumberGenerator.generate()));
         }
         if(bridge.size()!=size){
-            throw new IllegalStateException("다리의 길이가 맞지 않습니다.");
+            throw new IllegalStateException(BRIDGE_STATE_EXCEPTION);
         }
         return bridge;
     }
