@@ -22,7 +22,7 @@ public class BridgeMaker {
     public List<String> makeBridge(int size) {
         List<String> bridge = new ArrayList<>();
         for(int i=0; i<size; i++){
-            bridge.add(String.valueOf(bridgeNumberGenerator.generate()));
+            bridge.add(Move.findStringByMoveInt(bridgeNumberGenerator.generate()));
         }
         if(bridge.size()!=size){
             throw new IllegalStateException("다리의 길이가 맞지 않습니다.");
