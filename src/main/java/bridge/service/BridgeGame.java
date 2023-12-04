@@ -1,6 +1,5 @@
 package bridge.service;
 
-import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.Bridge;
 import bridge.domain.BridgeMaker;
 import bridge.domain.GameCommand;
@@ -15,15 +14,19 @@ import java.util.stream.Collectors;
  * 다리 건너기 게임을 관리하는 클래스
  */
 public class BridgeGame {
-    private final BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
+    private final BridgeMaker bridgeMaker;
     private static final int INITIAL_TRY_COUNT = 1;
     private int tryCount = INITIAL_TRY_COUNT;
     private Bridge bridge;
     private Bridge user;
     private Move userLastMove;
 
-    public static BridgeGame from() {
-        return new BridgeGame();
+    public BridgeGame(final BridgeMaker bridgeMaker) {
+        this.bridgeMaker = bridgeMaker;
+    }
+
+    public static BridgeGame from(final BridgeMaker bridgeMaker) {
+        return new BridgeGame(bridgeMaker);
     }
 
     public void settingBridge(final int bridgeSize) {
@@ -40,10 +43,10 @@ public class BridgeGame {
         boolean isMovable = user.move(bridge, userLastMove);
         return isMovable;
     }
-    
+
     public boolean retry(final String given) {
         GameCommand command = GameCommand.findByString(given);
-        if(command == GameCommand.RETRY){
+        if (command == GameCommand.RETRY) {
             tryCount++;
             user = Bridge.from(new ArrayList<>());
             return true;
@@ -57,7 +60,7 @@ public class BridgeGame {
 
     public MapDto getResult(final boolean isSuccess) {
         //현재까지의 성공한 결과에 가장 최근 결과를 반영해 반환한다.
-        if(isSuccess){
+        if (isSuccess) {
             MapDto.fromEntity(user, userLastMove, isSuccess);
         }
         return MapDto.fromEntity(user, userLastMove, isSuccess);
