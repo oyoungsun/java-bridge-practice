@@ -17,8 +17,8 @@ public class InputView implements Input {
     private static final int MAX_BRIDGE_SIZE = 20;
     private static final String BRIDGE_BOUNDARY = String.format("다리 길이는 %d부터 %d 사이의 숫자여야 합니다.", MIN_BRIDGE_SIZE,
             MAX_BRIDGE_SIZE);
-    private static final String NOT_MOVE_PATTERN = String.format("%s 또는 %s로 입력해 주세요", "U", "D");
-    private static final String NOT_GAME_PATTERN = String.format("%s 또는 %s로 입력해 주세요", "R", "Q");
+    private static final String NOT_MOVE_PATTERN = String.format("(대문자) %s 또는 %s로 입력해 주세요", "U", "D");
+    private static final String NOT_GAME_PATTERN = String.format("(대문자) %s 또는 %s로 입력해 주세요", "R", "Q");
 
     public static Input getInstance() {
         return new ProxyInputView(inputView);

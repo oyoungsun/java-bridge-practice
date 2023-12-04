@@ -16,11 +16,11 @@ public class ProxyInputView implements Input {
 
     @Override
     public String readMoving() {
-        return null;
+        return ExceptionHandler.input(inputView::readMoving, 0);
     }
 
     @Override
     public String readGameCommand() {
-        return null;
+        return ExceptionHandler.input(inputView::readGameCommand, 0);
     }
 }

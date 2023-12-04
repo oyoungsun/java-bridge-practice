@@ -1,5 +1,10 @@
 package bridge.view;
 
+import bridge.domain.dto.MapDto;
+import bridge.domain.dto.Result;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
@@ -10,7 +15,7 @@ public class OutputView {
         printEmpty();
     }
 
-    private static void printEmpty() {
+    public static void printEmpty() {
         System.out.println();
     }
 
@@ -26,12 +31,18 @@ public class OutputView {
         System.out.println(OutMessage.REQUEST_GAME_COMMAND.getPrint());
     }
 
-    public static void printMap() {
-        /**
-         * 현재까지 이동한 다리의 상태를 정해진 형식에 맞춰 출력한다.
-         * <p>
-         * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-         */
+    public static void printMap(final MapDto mapDto) {
+        System.out.print(Map.PREFIX);
+        List<String> results = new ArrayList<>();
+        for (Result result : mapDto.getResults()) {
+            if (result == Result.SUCCESS) {
+                results.add(Map.SUCCESS);
+                continue;
+            }
+            results.add(Map.FAIL);
+        }
+        System.out.print(String.join(Map.DELIMITER, results));
+        System.out.println(Map.SUFFIX);
         printEmpty();
     }
 
@@ -73,5 +84,13 @@ public class OutputView {
         public String getPrint() {
             return print;
         }
+    }
+
+    class Map {
+        private static final String SUCCESS = " O ";
+        private static final String FAIL = " X ";
+        private static final String DELIMITER = "|";
+        private static final String PREFIX = "[";
+        private static final String SUFFIX = "]";
     }
 }
