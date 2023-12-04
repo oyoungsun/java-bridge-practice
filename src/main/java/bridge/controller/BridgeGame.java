@@ -1,12 +1,28 @@
-package bridge.service;
+package bridge.controller;
+
+import bridge.BridgeRandomNumberGenerator;
+import bridge.domain.Bridge;
+import bridge.domain.BridgeMaker;
+import bridge.domain.Move;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
 public class BridgeGame {
+    private final BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
+    private Bridge bridge;
 
     public static BridgeGame from() {
         return new BridgeGame();
+    }
+
+    public void settingBridge(final int bridgeSize) {
+        List<Integer> randomBridge = bridgeMaker.makeBridge(bridgeSize);
+        List<Move> moves = randomBridge.stream().map(moveInt -> Move.findByInteger(moveInt))
+                .collect(Collectors.toList());
+        bridge = Bridge.from(moves);
     }
 
     /**
@@ -24,4 +40,5 @@ public class BridgeGame {
      */
     public void retry() {
     }
+
 }

@@ -7,10 +7,10 @@ public class OutputView {
 
     public static void printGameStart() {
         System.out.println(OutMessage.GAME_START.getPrint());
+        printEmpty();
     }
 
     private static void printEmpty() {
-        printEmpty();
         System.out.println();
     }
 

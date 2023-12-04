@@ -1,23 +1,25 @@
 package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
-import bridge.service.BridgeGame;
-import bridge.util.ExceptionHandler;
 import bridge.view.Input;
 import bridge.view.OutputView;
 
 public class GameController {
     private final BridgeRandomNumberGenerator bridgeGenerator;
     private final Input inputView;
-    private BridgeGame bridgeGame;
+    private final BridgeGame bridgeGame;
 
-    public GameController(final BridgeRandomNumberGenerator bridgeGenerator, final Input inputView) {
+    public GameController(final BridgeRandomNumberGenerator bridgeGenerator, final Input inputView,
+                          final BridgeGame bridgeGame) {
         this.bridgeGenerator = bridgeGenerator;
         this.inputView = inputView;
+        this.bridgeGame = bridgeGame;
     }
 
-    public static GameController of(Input inputView, BridgeRandomNumberGenerator bridgeGenerator) {
-        return new GameController(bridgeGenerator, inputView);
+    public static GameController of(Input inputView,
+                                    BridgeRandomNumberGenerator bridgeGenerator,
+                                    BridgeGame bridgeGame) {
+        return new GameController(bridgeGenerator, inputView, bridgeGame);
     }
 
     public void run() {
@@ -28,6 +30,6 @@ public class GameController {
     private void settingBridge() {
         OutputView.printRequestBridgeSize();
         int bridgeSize = inputView.readBridgeSize();
-        bridgeGame = BridgeGame.from();
+        bridgeGame.settingBridge(bridgeSize);
     }
 }

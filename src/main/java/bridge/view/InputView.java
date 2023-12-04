@@ -15,7 +15,7 @@ public class InputView implements Input {
     private static final String INTEGER_BOUNDARY = "정수의 범위를 벗어났습니다. ";
     private static final int MIN_BRIDGE_SIZE = 3;
     private static final int MAX_BRIDGE_SIZE = 20;
-    private static final String BRIDGE_BOUNDARY = String.format("다리 길이는 %d부터 %d까지 가능합니다.", MIN_BRIDGE_SIZE,
+    private static final String BRIDGE_BOUNDARY = String.format("다리 길이는 %d부터 %d 사이의 숫자여야 합니다.", MIN_BRIDGE_SIZE,
             MAX_BRIDGE_SIZE);
     private static final String NOT_MOVE_PATTERN = String.format("%s 또는 %s로 입력해 주세요", "U", "D");
     private static final String NOT_GAME_PATTERN = String.format("%s 또는 %s로 입력해 주세요", "R", "Q");
