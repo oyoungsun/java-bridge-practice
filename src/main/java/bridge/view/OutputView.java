@@ -58,7 +58,6 @@ public class OutputView {
         return results;
     }
 
-
     public static void printFinalMap(final OutcomDto outcomDto) {
         System.out.println(OutMessage.FINAL.getPrint());
         printMap(outcomDto.getMap());
@@ -79,7 +78,6 @@ public class OutputView {
     public static void printExceptionMessage(final String errorMessage) {
         System.out.println(errorMessage);
     }
-
 
     enum OutMessage {
         GAME_START("다리 건너기 게임을 시작합니다."),
