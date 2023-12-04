@@ -15,7 +15,7 @@ public enum Move {
 
     public static Move findByMoveName(final String string) {
         return Arrays.stream(Move.values()).filter(move -> move.moveName.equals(string)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("%s 또는 %s로 입력해 주세요", "U", "D")));
+                .orElseThrow(() -> new IllegalStateException(String.format("%s 또는 %s로 입력해 주세요", "U", "D")));
     }
 
     public static String findStringByMoveInt(final int moveInt) {

@@ -29,4 +29,5 @@ class BridgeMakerTest {
         //then
         assertEquals(size, result.size());
     }
+
 }
