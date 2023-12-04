@@ -28,7 +28,7 @@ public class ExceptionHandler {
         }
     }
 
-    public static <T> void process(Runnable runnable) { // 그 외
+    public static <T> void process(Runnable runnable) { // 파라미터 없고, 반환값 없음
         try {
             runnable.run();
         } catch (IllegalArgumentException e) {

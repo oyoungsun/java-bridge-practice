@@ -3,8 +3,11 @@ package bridge.controller;
 import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.Bridge;
 import bridge.domain.BridgeMaker;
+import bridge.domain.GameCommand;
 import bridge.domain.Move;
 import bridge.domain.dto.MapDto;
+import bridge.domain.dto.Result;
+import bridge.util.ExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,8 +47,12 @@ public class BridgeGame {
      *
      * @return
      */
-    public boolean retry(final String command) {
-        //user 초기화
+    public boolean retry(final String given) {
+        GameCommand command = GameCommand.findByString(given);
+        if(command == GameCommand.RETRY){
+            user = Bridge.from(new ArrayList<>());
+            return true;
+        }
         return false;
     }
 

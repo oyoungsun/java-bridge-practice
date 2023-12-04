@@ -1,6 +1,7 @@
 package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
+import bridge.util.ExceptionHandler;
 import bridge.view.Input;
 import bridge.view.OutputView;
 
@@ -27,11 +28,11 @@ public class GameController {
         OutputView.printGameStart();
         settingBridge();
         do {
-            processMove();
-            if(bridgeGame.isFinish()){
+            ExceptionHandler.process(() -> processMove());
+            if (bridgeGame.isFinish()) {
                 break;
             }
-        } while (processRetry());
+        } while (ExceptionHandler.setting(() -> processRetry()));
         processResult();
     }
 
@@ -41,7 +42,8 @@ public class GameController {
     private boolean processRetry() {
         OutputView.printRequestGameCommand();
         String command = inputView.readGameCommand();
-        return bridgeGame.retry(command);
+        boolean isRetry = bridgeGame.retry(command);
+        return isRetry;
     }
 
     private void processMove() {
@@ -49,7 +51,7 @@ public class GameController {
         String moving = inputView.readMoving();
         boolean isSuccess = bridgeGame.move(moving);
         OutputView.printMap(bridgeGame.getResult(isSuccess));
-        if(bridgeGame.isFinish()){
+        if (bridgeGame.isFinish()) {
             return;
         }
         if (isSuccess) {
