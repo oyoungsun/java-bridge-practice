@@ -22,6 +22,8 @@
   - [x] test : Bridge - 주어진 다리 크기와 현재 다리 크기가 같은지를 판단한다.
 # 게임을 실패한다.
 - [x] R/D를 입력한다.
+- [x] test : GameCommand - 'R', 'Q'를 입력 받으면 GameCommand에서 RETRY/QUIT 탐색이 가능하다.
+- [x] test : GameCommand - 정해진 값 이외 문자를 입력 받으면 예외를 반환한다.
 - [x] 재시작할 수 있다.
   - [x] 총 시도한 횟수는 첫 시도부터 게임을 종료할 때 까지의 (Retry)시도 횟수이다.
 - [x] 종료할 수 있다.
