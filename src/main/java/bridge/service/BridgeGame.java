@@ -35,7 +35,6 @@ public class BridgeGame {
                 .collect(Collectors.toList());
         bridge = Bridge.from(moves);
         user = Bridge.from(new ArrayList<>());
-        System.out.println(moves);
     }
 
     public boolean move(final String given) {
